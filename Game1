@@ -1,0 +1,44 @@
+import random
+
+# Define the game map
+MAP_SIZE = 5
+
+# Define the player's starting position
+player_pos = [0, 0]
+
+# Define the treasure's position
+treasure_pos = [random.randint(0, MAP_SIZE - 1), random.randint(0, MAP_SIZE - 1)]
+
+# Main game loop
+while True:
+    # Display the map
+    for y in range(MAP_SIZE):
+        for x in range(MAP_SIZE):
+            if [x, y] == player_pos:
+                print("P", end=" ")
+            elif [x, y] == treasure_pos:
+                print("T", end=" ")
+            else:
+                print(".", end=" ")
+        print()
+
+    # Get player input
+    move = input("Enter 'W' to move up, 'A' to move left, 'S' to move down, 'D' to move right, or 'Q' to quit: ").upper()
+
+    # Move the player
+    if move == 'W' and player_pos[1] > 0:
+        player_pos[1] -= 1
+    elif move == 'A' and player_pos[0] > 0:
+        player_pos[0] -= 1
+    elif move == 'S' and player_pos[1] < MAP_SIZE - 1:
+        player_pos[1] += 1
+    elif move == 'D' and player_pos[0] < MAP_SIZE - 1:
+        player_pos[0] += 1
+    elif move == 'Q':
+        print("Thanks for playing!")
+        break
+
+    # Check if the player found the treasure
+    if player_pos == treasure_pos:
+        print("Congratulations! You found the treasure!")
+        break
